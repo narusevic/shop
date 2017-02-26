@@ -7,16 +7,53 @@ class Request
     private Client client;
     private Product product;
     private int amount;
-    private Boolean isConfirmed = null;
+    private Boolean isConfirmed;
+    private Boolean hasFunds = null;
     private static int requestsCount = 0;
 
     public Request(Client client, Product product, int amount)
     {
+        this(client, product, amount, true);
+    }
+
+    public Request(Client newClient, Product newProduct, int newAmount, Boolean newHasFunds)
+    {
         id = requestsCount;
-        client = client;
-        product = product;
-        amount = amount;
+        client = newClient;
+        product = newProduct;
+        amount = newAmount;
+        hasFunds = newHasFunds;
         requestsCount++;
+    }
+
+    public Boolean getConfirmation()
+    {
+        return this.isConfirmed;
+    }
+
+    public void setConfirmation(Boolean isConfirmed)
+    {
+        this.isConfirmed = isConfirmed;
+    }
+
+    public Boolean getHasFunds()
+    {
+        return this.hasFunds;
+    }
+
+    public Client getClient()
+    {
+        return this.client;
+    }
+
+    public Product getProduct()
+    {
+        return this.product;
+    }
+
+    public int getAmount()
+    {
+        return this.amount;
     }
 }    
 
@@ -29,7 +66,7 @@ class Client
 
     public Client()
     {
-        this("", 0);
+        this("");
     }
 
     public Client(String clientName)
@@ -45,10 +82,38 @@ class Client
         clientsCount++;
     }
 
-    public int MakeRequest(Product product, int amount)
+    public void addMoney(int addMoney)
     {
-        Request request = new Request(this, product, amount);
-        return 1;
+        money += addMoney;
+    }
+
+    public void subtractMoney(int subtractMoney)
+    {
+        money -= subtractMoney;
+    }
+
+    public int getMoney()
+    {
+        return this.money;
+    }
+
+    public Request makeRequest(Product product)
+    {
+        return makeRequest(product, 1);
+    }
+
+    public Request makeRequest(Product product, int amount)
+    {        
+        if (this.getMoney() >= (product.getPrice() * amount) && amount <= product.getAmount())
+        {
+            Request newRequest = new Request(this, product, amount);
+            return newRequest;
+        }
+        else
+        {
+            Request newRequest = new Request(this, product, amount, false);
+            return newRequest;
+        }
     }
 }
 
@@ -82,20 +147,8 @@ class Product
         price = Integer.parseInt(productPrice);
         amount = Integer.parseInt(productAmount);
     }
-
-    public int SoldProduct(int amount)
-    {
-        if (this.amount >= amount)
-        {
-            this.amount -= amount;
-
-            return 1;
-        }
-
-        return 0;
-    }
     
-    public static List<Product> ListProducts(String file)
+    public static List<Product> listProducts(String file)
     {        
         List<Product> products = new ArrayList<Product>();
         
@@ -135,15 +188,86 @@ class Product
           
         return products;      
     }
+
+    public int getPrice()
+    {
+        return this.price;
+    }
+
+    public void setPrice(int price)
+    {
+        this.price = price;
+    }
+
+    public int getAmount()
+    {
+        return this.amount;
+    }
+
+    public void setAmount(int price)
+    {
+        this.amount = amount;
+    }
+
+    public String getName()
+    {
+        return this.name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+}
+
+class Shopper
+{
+    public static void approveRequest(Request request)
+    {
+        int clientMoney = request.getClient().getMoney();
+        int requestAmount = request.getAmount();
+        int wholeRequestPrice = requestAmount * request.getProduct().getPrice();
+        int leftInShop = request.getProduct().getAmount();
+
+        if (request.getConfirmation() == null && clientMoney >= wholeRequestPrice && requestAmount <= leftInShop)
+        {
+            request.setConfirmation(true);
+            request.getClient().subtractMoney(request.getAmount() * request.getProduct().getPrice());
+        }
+        else
+        {
+            declineRequest(request);
+        }
+    }
+
+    public static void declineRequest(Request request)
+    {
+        if (request.getConfirmation() == null && request.getHasFunds())
+        {
+            request.setConfirmation(false);
+        }
+    }
 }
 
 public class Main
 {
     public static void main (String[] args)
     {        
-        List<Product> products = Product.ListProducts("products.txt");
+        Client lukas = new Client("Lukas");
+        lukas.addMoney(10);
 
-        Product p = products.get(0);
-        //System.out.println(p.name);
+        List<Product> availableProducts = Product.listProducts("products.txt");    
+
+        Product product1 = new Product("Apple", 5, 100);
+
+        Request request1 = lukas.makeRequest(product1, 1);
+        Request request2 = lukas.makeRequest(product1, 2); 
+        Request request3 = lukas.makeRequest(product1); 
+
+        Shopper.approveRequest(request1);
+        Shopper.approveRequest(request2);
+        Shopper.approveRequest(request3);
+
+        System.out.println(lukas.getMoney());
     }
 }
