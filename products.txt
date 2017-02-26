@@ -1,0 +1,4 @@
+dog 5 1
+cat 2 10
+clock 1 10
+
