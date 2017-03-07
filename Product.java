@@ -1,7 +1,11 @@
-import java.util.*;
-import java.io.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
-class Product
+public class Product
 {
     private final int id;
     private String name;
@@ -11,25 +15,22 @@ class Product
 
     public Product()
     {
-        this("", 0, 0);       
-    }
-
-    public Product(String productName, int productPrice, int productAmount)
-    {
-        id = productsCount;
-        name = productName;
-        price = productPrice;
-        amount = productAmount;
+        this.id = productsCount;
         productsCount++;
     }
 
-    public Product(String productName, String productPrice, String productAmount)
+    public Product(String name, String price, String amount)
     {
-        id = productsCount;
-        productsCount++;
-        name = productName;
-        price = Integer.parseInt(productPrice);
-        amount = Integer.parseInt(productAmount);
+        this(name, Integer.parseInt(price), Integer.parseInt(amount));
+    }
+
+    public Product(String name, int price, int amount)
+    {
+        this.id = this.productsCount;
+        this.name = name;
+        this.price = price;
+        this.amount = amount;
+        this.productsCount++;
     }
     
     public static List<Product> listProducts(String file)
@@ -38,12 +39,12 @@ class Product
         
         try 
         {
-            BufferedReader br = new BufferedReader(new FileReader(file));
+            BufferedReader reader = new BufferedReader(new FileReader(file));
         
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
+            StringBuilder builder = new StringBuilder();
+            String line = reader.readLine();
 
-            while (line != null ) 
+            while (line != null) 
             {
                 System.out.println(line);
                 String[] productInfo = line.split(" ");
@@ -54,12 +55,12 @@ class Product
                 Product newProduct = new Product(productInfo[0], productInfo[1], productInfo[2]);
 
                 products.add(newProduct);
-                line = br.readLine();
+                line = reader.readLine();
             }
             
-            String everything = sb.toString();
+            String everything = builder.toString();
   
-            br.close();
+            reader.close();
         }
         catch(FileNotFoundException e)
         {

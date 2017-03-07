@@ -8,19 +8,19 @@ class Request
     private Boolean hasFunds = null;
     private static int requestsCount = 0;
 
-    public Request(Client newClient, Product newProduct, int newAmount)
+    public Request(Client client, Product product, int amount)
     {
-        this(newClient, newProduct, newAmount, true);
+        this(client, product, amount, true);
     }
 
-    public Request(Client newClient, Product newProduct, int newAmount, Boolean newHasFunds)
+    public Request(Client client, Product product, int amount, Boolean hasFunds)
     {
-        id = requestsCount;  
-        client = newClient;
-        product = newProduct;
-        amount = newAmount;
-        hasFunds = newHasFunds;
-        requestsCount++;
+        this.id = this.requestsCount;  
+        this.client = client;
+        this.product = product;
+        this.amount = amount;
+        this.hasFunds = hasFunds;
+        this.requestsCount++;
     }
 
     public Boolean getConfirmation()
@@ -53,4 +53,3 @@ class Request
         return this.amount;
     }
 }    
-

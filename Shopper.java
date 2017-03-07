@@ -1,4 +1,4 @@
-class Shopper
+public class Shopper
 {
     public static int approveRequest(Request request)
     {

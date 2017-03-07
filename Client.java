@@ -1,4 +1,4 @@
-class Client
+public class Client
 {
     private final int id;
     private String name;
@@ -7,30 +7,31 @@ class Client
 
     public Client()
     {
-        this("");
-    }
-
-    public Client(String clientName)
-    {
-        this(clientName, 0);
-    }
-
-    public Client(String clientName, int clientMoney)
-    {
-        id = clientsCount;
-        name = clientName;
-        money = clientMoney;
+        this.id = clientsCount;
         clientsCount++;
+    }
+
+    public Client(String name)
+    {
+        this(name, 0);
+    }
+
+    public Client(String name, int money)
+    {
+        this.id = this.clientsCount;
+        this.name = name;
+        this.money = money;
+        this.clientsCount++;
     }
 
     public void addMoney(int addMoney)
     {
-        money += addMoney;
+        this.money += addMoney;
     }
 
     public void subtractMoney(int subtractMoney)
     {
-        money -= subtractMoney;
+        this.money -= subtractMoney;
     }
 
     public int getMoney()
