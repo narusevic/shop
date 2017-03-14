@@ -7,13 +7,18 @@ public class Main
 
         Product product1 = new Product("Apple", 5, 2);
 
-        Request.makeRequest(client, product1, 1);
+        String err1 = Request.makeRequest(client, product1, 1);
         System.out.println(client.getMoney());        
-        Request.makeRequest(client, product1, 10); 
+        String err2 = Request.makeRequest(client, product1, 10); 
         System.out.println(client.getMoney());
-        Request.makeRequest(client, product1);  
+        String err3 = Request.makeRequest(client, product1);  
         System.out.println(client.getMoney());  
-        Request.makeRequest(client, product1);  
+        String err4 = Request.makeRequest(client, product1);  
         System.out.println(client.getMoney());  
+
+        System.out.println(err1);  
+        System.out.println(err2);  
+        System.out.println(err3);  
+        System.out.println(err4);  
     }
 }

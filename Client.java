@@ -37,4 +37,14 @@ public class Client
     {
         return this.money;
     }
+
+    public Boolean hasEnoughMoney(int productPrice, int productAmount)
+    {
+        if (this.getMoney() >= productAmount * productPrice)
+        {
+            return true;
+        }
+
+        return false;
+    }
 }
