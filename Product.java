@@ -19,18 +19,12 @@ public class Product
         productsCount++;
     }
 
-    public Product(String name, String price, String amount)
-    {
-        this(name, Integer.parseInt(price), Integer.parseInt(amount));
-    }
-
     public Product(String name, int price, int amount)
     {
-        this.id = this.productsCount;
+    	this();
         this.name = name;
         this.price = price;
         this.amount = amount;
-        this.productsCount++;
     }
     
     public static List<Product> listProducts(String file)
@@ -52,7 +46,11 @@ public class Product
                 {
                     break;
                 }
-                Product newProduct = new Product(productInfo[0], productInfo[1], productInfo[2]);
+
+                int price = Integer.parseInt(productInfo[1]);
+                int amount = Integer.parseInt(productInfo[2]);
+
+                Product newProduct = new Product(productInfo[0], price, amount);
 
                 products.add(newProduct);
                 line = reader.readLine();
@@ -89,9 +87,14 @@ public class Product
         return this.amount;
     }
 
-    public void setAmount(int price)
+    public void setAmount(int amount)
     {
         this.amount = amount;
+    }
+
+    public void subtractAmount(int amount)
+    {
+        this.amount -= amount;
     }
 
     public String getName()
@@ -102,5 +105,24 @@ public class Product
     public void setName(String name)
     {
         this.name = name;
+    }
+
+    public Boolean isEnoughMoney(int clientMoney, int productAmount)
+    {
+    	if (clientMoney >= productAmount * this.price)
+    	{
+    		return true;
+    	}
+
+    	return false;
+    }
+	public Boolean enoughAmount(int requiredAmount)
+    {
+    	if (requiredAmount <= this.amount)
+    	{
+    		return true;
+    	}
+
+    	return false;
     }
 }

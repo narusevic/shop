@@ -2,21 +2,18 @@ public class Main
 {
     public static void main (String[] args)
     {
-        Client lukas = new Client("Lukas");
-        lukas.addMoney(10);   
+        Client client = new Client("Client");
+        client.addMoney(15);   
 
-        Product product1 = new Product("Apple", 5, 100);
+        Product product1 = new Product("Apple", 5, 2);
 
-        Request request1 = lukas.makeRequest(product1, 1);
-        Request request2 = lukas.makeRequest(product1, 2); 
-        Request request3 = lukas.makeRequest(product1); 
-
-        int err1 = Shopper.approveRequest(request1);
-        int err2 = Shopper.approveRequest(request2);
-        int err3 = Shopper.approveRequest(request2);       
-
-        System.out.println(err1);
-        System.out.println(err2);
-        System.out.println(err3);
+        Request.makeRequest(client, product1, 1);
+        System.out.println(client.getMoney());        
+        Request.makeRequest(client, product1, 10); 
+        System.out.println(client.getMoney());
+        Request.makeRequest(client, product1);  
+        System.out.println(client.getMoney());  
+        Request.makeRequest(client, product1);  
+        System.out.println(client.getMoney());  
     }
 }

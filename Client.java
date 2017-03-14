@@ -18,10 +18,9 @@ public class Client
 
     public Client(String name, int money)
     {
-        this.id = this.clientsCount;
+    	this();
         this.name = name;
         this.money = money;
-        this.clientsCount++;
     }
 
     public void addMoney(int addMoney)
@@ -37,24 +36,5 @@ public class Client
     public int getMoney()
     {
         return this.money;
-    }
-
-    public Request makeRequest(Product product)
-    {
-        return makeRequest(product, 1);
-    }
-
-    public Request makeRequest(Product product, int amount)
-    {        
-        if (this.getMoney() >= (product.getPrice() * amount) && amount <= product.getAmount())
-        {
-            Request newRequest = new Request(this, product, amount);
-            return newRequest;
-        }
-        else
-        {
-            Request newRequest = new Request(this, product, amount, false);
-            return newRequest;
-        }
     }
 }

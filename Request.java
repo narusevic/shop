@@ -1,4 +1,4 @@
-class Request
+public class Request
 {
     private final int id;
     private Client client;
@@ -52,4 +52,35 @@ class Request
     {
         return this.amount;
     }
+    public static void makeRequest(Client client, Product product)
+    {
+        makeRequest(client, product, 1);
+    }
+
+    public static void makeRequest(Client client, Product product, int amount)
+    {     
+        if (!product.isEnoughMoney(client.getMoney(), amount) || !product.enoughAmount(amount))
+        {
+    		String errorText = new String();
+
+        	if (!product.isEnoughMoney(client.getMoney(), amount))
+        	{
+    			errorText += "Client does not have enough money. ";
+        	}
+        	if (!product.enoughAmount(amount))
+        	{
+        		errorText += "Shop does not have enough products in stock.";
+        	}
+
+        	System.out.println(errorText);
+        	return;
+        }
+
+        Request newRequest = new Request(client, product, amount);
+
+        client.subtractMoney(product.getPrice() * amount);
+        product.subtractAmount(amount);   
+
+    	System.out.println("Purchase succeeded.");
+	}
 }    
