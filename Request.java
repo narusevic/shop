@@ -25,7 +25,7 @@ public class Request
         return this.product;
     }
 
-    public int getAmount()
+    public int getAmount()  
     {
         return this.amount;
     }
@@ -36,11 +36,11 @@ public class Request
 
     public static String makeRequest(Client client, Product product, int amount)
     {     
-        if (!client.hasEnoughMoney(client.getMoney(), amount) || !product.enoughAmount(amount))
+        if (!product.hasEnoughMoney(client.getMoney(), amount) || !product.enoughAmount(amount))
         {
     		String errorText = new String();
 
-        	if (!client.hasEnoughMoney(client.getMoney(), amount))
+        	if (!product.hasEnoughMoney(client.getMoney(), amount))
         	{
     			errorText += "Client does not have enough money. ";
         	}
@@ -57,6 +57,6 @@ public class Request
         client.subtractMoney(product.getPrice() * amount);
         product.subtractAmount(amount);   
 
-    	return "Purchase succeeded!";
+    	return "Request succeeded!";
 	}
 }    

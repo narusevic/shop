@@ -106,7 +106,7 @@ public class Product
     {
         this.name = name;
     }
-    
+
 	public Boolean enoughAmount(int requiredAmount)
     {
     	if (requiredAmount <= this.amount)
@@ -115,5 +115,15 @@ public class Product
     	}
 
     	return false;
+    }
+
+    public Boolean hasEnoughMoney(int clientMoney, int productAmount)
+    {
+        if (clientMoney >= productAmount * this.getPrice())
+        {
+            return true;
+        }
+
+        return false;
     }
 }
