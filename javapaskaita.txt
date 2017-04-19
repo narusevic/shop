@@ -4,3 +4,36 @@ Map
 Set
 Queue
 Interfaces all above
+
+paskaita 03-28
+CSV
+XML
+JSON
+
+kambariai.txt
+1, Dvigubas, true, true,
+2, Viengubas, tru, false,
+
+eilute.split(",");
+packets
+
+lt.vu.mif.viesbutis.core.
+                   .ui
+                   .io
+
+package lt.vu.mif.viesbutis.core;
+
+public class Kambarys{}
+
+Main dėti viešbutin
+
+javac
+-cp -classpath //išorinė klasė
+
+-d//destination path for compiled classes
+    src
+    classes
+
+
+javac -d "classes" "src/mif/eshop/core/Product.java" "src/mif/eshop/core/Client.java" "src/mif/eshop/core/Request.java" "src/mif/eshop/io/Main.java"
+java -classpath "classes" mif.eshop.io.Main

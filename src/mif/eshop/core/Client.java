@@ -1,3 +1,5 @@
+package mif.eshop.core;
+
 public class Client
 {
     private final int id;

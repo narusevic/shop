@@ -1,3 +1,5 @@
+package mif.eshop.core;
+
 public class Request
 {
     private final int id;
@@ -54,8 +56,12 @@ public class Request
 
         Request newRequest = new Request(client, product, amount);
 
-        client.subtractMoney(product.getPrice() * amount);
+        int price = product.getPrice() * amount;
+
+        client.subtractMoney(price);
         product.subtractAmount(amount);   
+
+        Cashier.giveReceipt(newRequest, price);
 
     	return "Request succeeded!";
 	}
