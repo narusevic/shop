@@ -1,16 +1,13 @@
 package mif.eshop.core;
 
-public class Client
+public class Client extends Person
 {
-    private final int id;
-    private String name;
     private int money;
-    private static int clientsCount = 0;
 
     public Client()
     {
-        this.id = clientsCount;
-        clientsCount++;
+        this.id = count;
+        count++;
     }
 
     public Client(String name)

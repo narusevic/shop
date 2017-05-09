@@ -3,16 +3,12 @@ package mif.eshop.core;
 import java.util.Date;
 import mif.eshop.io.Output;
 
-public class Cashier
+public class Cashier extends Person
 {
-    private final int id;
-    private String name;
-    private static int cashiersCount;
-
     public Cashier(String name)
     {
-        this.id = cashiersCount;
-        cashiersCount++;
+        this.id = count;
+        count++;
         this.name = name;
     }
 

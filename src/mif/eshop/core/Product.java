@@ -2,7 +2,7 @@ package mif.eshop.core;
 
 import java.util.List;
 
-public class Product
+public class Product extends Service implements Commodity
 {
     private final int id;
     private String name;
