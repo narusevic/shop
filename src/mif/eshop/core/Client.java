@@ -15,12 +15,18 @@ public class Client extends Person
         this(name, 0);
     }
 
-    public Client(String name, String money)
+    public Client(String name, String money) throws NegativeException
     {
     	this();
         this.name = name;
 
         int moneyInt = Integer.parseInt(money);
+
+        if (moneyInt < 0)
+        {
+            throw new NegativeException("Money can't be below zero.'");
+        }
+        
         this.money = moneyInt;
     }
 

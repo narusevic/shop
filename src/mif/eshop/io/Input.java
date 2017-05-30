@@ -11,12 +11,10 @@ import mif.eshop.core.Shop;
 import mif.eshop.core.Product;
 public class Input
 {
-    public static List<Product> readProducts(String file)
+    public static List<Product> readProducts(String file) throws FileNotFoundException, IOException
     {        
         List<Product> products = new ArrayList<Product>();
-        
-        try 
-        {
+
             BufferedReader reader = new BufferedReader(new FileReader(file));
         
             StringBuilder builder = new StringBuilder();
@@ -43,15 +41,7 @@ public class Input
             String everything = builder.toString();
   
             reader.close();
-        }
-        catch(FileNotFoundException e)
-        {
-            
-        }
-        catch(IOException e)
-        {
-            
-        }          
+               
           
         return products;      
     }

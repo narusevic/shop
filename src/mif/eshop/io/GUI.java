@@ -1,5 +1,6 @@
 package mif.eshop.io;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -14,13 +15,15 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 import mif.eshop.core.Client;
 import mif.eshop.core.Product;
 import mif.eshop.core.Request;
 import mif.eshop.core.Shop;
-import mif.eshop.core.AmountException;
+import mif.eshop.core.NegativeException;
 
 public class GUI
 {
@@ -33,7 +36,7 @@ public class GUI
     public static void userWelcome()
     {
         JFrame welcomeFrame = new JFrame();
-        welcomeFrame.setSize(220, 300);
+        welcomeFrame.setSize(600, 300);
 
         JLabel inputNameLabel = new JLabel("Input your name:");
         JLabel inputMoneyLabel = new JLabel("Input money you have:");
@@ -67,6 +70,11 @@ public class GUI
                     exceptionArea.setText(exception.toString());
                     welcomeFrame.add(scroll);
                 }
+                catch (NegativeException exception)
+                {
+                    exceptionArea.setText(exception.toString());
+                    welcomeFrame.add(scroll);
+                }
             }
         });
 
@@ -75,7 +83,7 @@ public class GUI
         userNameField.setBounds(20, 50, 160, 20);
         userMoneyField.setBounds(20, 110, 160, 20);
         confirmPersonButton.setBounds(50, 140, 80, 30);
-        exceptionArea.setBounds(20, 180, 160, 30);
+        exceptionArea.setBounds(20, 180, 500, 40);
 
         welcomeFrame.add(inputNameLabel);
         welcomeFrame.add(inputMoneyLabel);
@@ -96,13 +104,37 @@ public class GUI
 
         JLabel nameLabel = new JLabel(client.getName());
         JLabel moneyLabel = new JLabel(Integer.toString(client.getMoney()) + "eu");
-        JLabel selectProductLabel = new JLabel("Select product:");
+        JLabel selectProductLabel = new JLabel();
         JLabel amountLabel = new JLabel("Enter amount:");
         JTextField amountField = new JTextField("0");
         JButton buyButton = new JButton("Buy");
         JTextArea exceptionArea = new JTextArea("No Exceptions");
 
-        List<Product> products = Input.readProducts("products.txt");
+        List<Product> products = new ArrayList<Product>();
+
+        try 
+        {            
+            products = Input.readProducts("products.txt");
+        } 
+        catch (FileNotFoundException e) 
+        {
+            exceptionArea.setText(e.toString());            
+        }
+        catch (IOException e) 
+        {
+            exceptionArea.setText(e.toString());            
+        }
+        finally
+        {
+            if (products.size() > 0)
+            {
+                selectProductLabel.setText("Select one of " + products.size() + " products:");
+            }
+            else
+            {
+                selectProductLabel.setText("No products.");
+            }
+        }        
 
         DefaultListModel<String> productNames = new DefaultListModel<>();
         int[] productIds = new int[products.size()];
@@ -129,29 +161,39 @@ public class GUI
 
                     if (amount < 0)
                     {
-                        throw new AmountException("Amount can't be below 0.", amount);
+                        throw new NegativeException("Amount can't be below 0.", amount);
                     }
                     else if (amount == 0)
                     {
-                        throw new AmountException("Amount can't be 0.");
+                        throw new NegativeException("Amount can't be 0.");
                     }
                 }
                 catch (NumberFormatException exception)
                 {
                     exceptionArea.setText(exception.toString());
-                    //shopFrame.add(scroll);
 
                     return;
                 }
-                catch (AmountException exception)
+                catch (NegativeException exception)
                 {                    
                     exceptionArea.setText(exception.toString());
 
                     return;
                 }
+                
+                int productId;
 
-                int listIndex = productsMenu.getSelectedIndex();
-                int productId = productIds[listIndex];
+                try 
+                {
+                    int listIndex = productsMenu.getSelectedIndex();
+                    productId = productIds[listIndex];
+                }
+                catch (ArrayIndexOutOfBoundsException exception)
+                {
+                    exceptionArea.setText("Product not selected.");           
+
+                    return;         
+                }
 
                 System.out.println("atejo");  
 
@@ -167,8 +209,8 @@ public class GUI
 
         nameLabel.setBounds(20, 20, 60, 20);
         moneyLabel.setBounds(120, 20, 60, 20);
-        selectProductLabel.setBounds(240, 20, 100, 20);
-        productsMenu.setBounds(240, 50, 100, 150);
+        selectProductLabel.setBounds(240, 20, 250, 20);
+        productsMenu.setBounds(240, 50, 250, 150);
         amountLabel.setBounds(20, 60, 100, 20);
         amountField.setBounds(20, 90, 100, 20);
         buyButton.setBounds(20, 140, 200, 30);

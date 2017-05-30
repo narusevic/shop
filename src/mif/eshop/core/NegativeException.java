@@ -1,6 +1,6 @@
 package mif.eshop.core;
 
-public class AmountException extends Exception 
+public class NegativeException extends Exception 
 {
     private int amount = 0;
     public int getAmount()
@@ -8,12 +8,12 @@ public class AmountException extends Exception
         return amount;
     }
 
-    public AmountException(String message, int amount)
+    public NegativeException(String message, int amount)
     {
         super (message + " Bad Amount: " + amount);
     }
     
-    public AmountException(String message)
+    public NegativeException(String message)
     {
         super (message);
     }
