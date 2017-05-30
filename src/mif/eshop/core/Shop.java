@@ -29,6 +29,6 @@ public class Shop
 
     public static Product getProductById(int productId)
     {
-        return products.get(productId - 1);
+        return products.get(productId);
     }
 }

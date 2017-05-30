@@ -15,6 +15,15 @@ public class Client extends Person
         this(name, 0);
     }
 
+    public Client(String name, String money)
+    {
+    	this();
+        this.name = name;
+
+        int moneyInt = Integer.parseInt(money);
+        this.money = moneyInt;
+    }
+
     public Client(String name, int money)
     {
     	this();
@@ -35,5 +44,10 @@ public class Client extends Person
     public int getMoney()
     {
         return this.money;
+    }
+
+    public String getName()
+    {
+        return this.name;
     }
 }

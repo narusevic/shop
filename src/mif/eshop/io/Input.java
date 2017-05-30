@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
+import mif.eshop.core.Shop;
 import mif.eshop.core.Product;
 public class Input
 {
@@ -23,7 +24,6 @@ public class Input
 
             while (line != null) 
             {
-                System.out.println(line);
                 String[] productInfo = line.split(" ");
                 if (productInfo.length != 3)
                 {
@@ -34,6 +34,7 @@ public class Input
                 int amount = Integer.parseInt(productInfo[2]);
 
                 Product newProduct = new Product(productInfo[0], price, amount);
+                Shop.addProduct(newProduct);
 
                 products.add(newProduct);
                 line = reader.readLine();

@@ -2,7 +2,7 @@ package mif.eshop.core;
 
 import java.util.List;
 
-public class Product extends Service implements Commodity
+public class Product implements Commodity
 {
     private final int id;
     private String name;
@@ -27,6 +27,11 @@ public class Product extends Service implements Commodity
     public int getPrice()
     {
         return this.price;
+    }
+        
+    public int getId()
+    {
+        return this.id;
     }
 
     public void setPrice(int price)

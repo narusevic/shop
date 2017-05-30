@@ -37,3 +37,6 @@ javac
 
 javac -d "classes" "src/mif/eshop/core/Product.java" "src/mif/eshop/core/Client.java" "src/mif/eshop/core/Request.java" "src/mif/eshop/io/Main.java"
 java -classpath "classes" mif.eshop.io.Main
+
+javac -d "classes" "src/mif/eshop/core/*.java" "src/mif/eshop/io/*.java" 
+java -classpath "classes" mif.eshop.io.Main

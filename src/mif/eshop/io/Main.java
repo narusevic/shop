@@ -9,11 +9,11 @@ public class Main
 {
     public static void main (String[] args)
     {
-        Client client = new Client("Client");
+       /* Client client = new Client("Client");
         client.addMoney(15);   
 
         Product product1 = new Product("Apple", 5, 2);
-        Shop.addProduct(product1);
+        Shop.addProduct(product1);*/
 /*
         String err1 = Request.makeRequest(client, product1, 1);
         System.out.println(client.getMoney());        
@@ -29,6 +29,7 @@ public class Main
         System.out.println(err3);  
         System.out.println(err4);  */
 
-        UserInterface.initializeUi();
+        //UserInterface.initializeUi();
+        GUI.generateInterface();
     }
 }
