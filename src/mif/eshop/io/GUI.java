@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.WindowConstants;
 
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -33,7 +34,7 @@ public class GUI
         GUI.userWelcome();
     }
 
-    public static void userWelcome()
+    private static void userWelcome()
     {
         JFrame welcomeFrame = new JFrame();
         welcomeFrame.setSize(600, 300);
@@ -50,6 +51,7 @@ public class GUI
 
         confirmPersonButton.addActionListener(new ActionListener()
         {
+            @Override
             public void actionPerformed(ActionEvent e)
             {
                 String userName = userNameField.getText();
@@ -95,9 +97,10 @@ public class GUI
 
         welcomeFrame.setLayout(null);
         welcomeFrame.setVisible(true);
+        welcomeFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    public static void generateShopWindow(Client client)
+    private static void generateShopWindow(Client client)
     {
         JFrame shopFrame = new JFrame();
         shopFrame.setSize(600, 300);
@@ -137,7 +140,7 @@ public class GUI
         }        
 
         DefaultListModel<String> productNames = new DefaultListModel<>();
-        int[] productIds = new int[products.size()];
+        int[] productIds = new int[products.size()];        
         
         for (int i = 0; i < products.size(); i++) 
         {             
@@ -151,6 +154,7 @@ public class GUI
 
         buyButton.addActionListener(new ActionListener()
         {     
+            @Override
             public void actionPerformed(ActionEvent e)
             {
                 int amount;
@@ -195,8 +199,6 @@ public class GUI
                     return;         
                 }
 
-                System.out.println("atejo");  
-
                 Product selectedProduct = Shop.getProductById(productId);
 
                 String err1 = Request.makeRequest(client, selectedProduct, amount);
@@ -227,5 +229,6 @@ public class GUI
         
         shopFrame.setLayout(null);
         shopFrame.setVisible(true);
+        shopFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }
